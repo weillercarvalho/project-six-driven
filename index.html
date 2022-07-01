@@ -13,19 +13,93 @@
     </head>
     <body>
         <header>
-            <nav>BuzzQuizz</nav>
+            <div>BuzzQuizz</div>
         </header>
         <main>
             <div class="container1">
                 <div class="text1">Comece pelo começo</div>
-                <div class="info1">
+                <div class="info">
                     <input type="text" class="input1" placeholder="Titulo do seu quizz">
                     <input type="text" class="input2" placeholder="URL da imagem do seu quizz">
                     <input type="text" class="input3" placeholder="Quantidade de perguntas do quizz">
                     <input type="text" class="input4" placeholder="Quantidade de niveis do quizz">
                 </div>
-                <div class="button1">Prosseguir para criar perguntas</div>
-                
+                <div class="button1" onclick="telaInicial()">Prosseguir para criar perguntas</div>
+            </div>
+            <div class="container2 escondido">
+                <div class="titulo">Crie suas perguntas</div>
+                <div class="father">
+                    <nav class="pergunta1 escondido"><span>Pergunta 1</span> <img class="imgprg1" onclick="switarEscolha()" src="./images/Vector.png"></nav>
+                        <div class="info1">
+                            <div class="textpergunta1">Pergunta 1</div>
+                            <input type="text" class="input5-1" placeholder="Texto da pergunta">
+                            <input type="text" class="input6-1" placeholder="Cor de fundo da pergunta">
+                            <div class="textpergunta2">Resposta correta</div>
+                            <input type="text" class="input7-1" placeholder="Resposta correta">
+                            <input type="text" class="input8-1" placeholder="URL da imagem">
+                            <div class="textpergunta3">Respostas incorretas</div>
+                            <div class="subinput1">
+                                <input type="text" class="input9-1" placeholder="Resposta incorreta 1">
+                                <input type="text" class="input10-1" placeholder="URL da imagem 1">
+                            </div>
+                            <div class="subinput2">
+                                <input type="text" class="input11-1" placeholder="Resposta incorreta 2">
+                                <input type="text" class="input12-1" placeholder="URL da imagem 2">
+                            </div>
+                            <div class="subinput3">
+                                <input type="text" class="input13-1" placeholder="Resposta incorreta 3">
+                                <input type="text" class="input14-1" placeholder="URL da imagem 3">
+                            </div>
+                        </div>
+                </div>     
+                <div class="father">
+                    <nav class="pergunta2"><span>Pergunta 2</span> <img class="imgprg2" onclick="switarEscolha()" src="./images/Vector.png"></nav>
+                        <div class="info2 escondido">
+                            <div class="textpergunta1">Pergunta 2</div>
+                            <input type="text" class="input5-2" placeholder="Texto da pergunta">
+                            <input type="text" class="input6-2" placeholder="Cor de fundo da pergunta">
+                            <div class="textpergunta2">Resposta correta</div>
+                            <input type="text" class="input7-2" placeholder="Resposta correta">
+                            <input type="text" class="input8-2" placeholder="URL da imagem">
+                            <div class="textpergunta3">Respostas incorretas</div>
+                            <div class="subinput1">
+                                <input type="text" class="input9-2" placeholder="Resposta incorreta 1">
+                                <input type="text" class="input10-2" placeholder="URL da imagem 1">
+                            </div>
+                            <div class="subinput2">
+                                <input type="text" class="input11-2" placeholder="Resposta incorreta 2">
+                                <input type="text" class="input12-2" placeholder="URL da imagem 2">
+                            </div>
+                            <div class="subinput3">
+                                <input type="text" class="input13-2" placeholder="Resposta incorreta 3">
+                                <input type="text" class="input14-2" placeholder="URL da imagem 3">
+                            </div>
+                        </div>
+                </div>    
+                <div class="father">
+                    <nav class="pergunta3"><span>Pergunta 3</span> <img class="imgprg3" onclick="switarEscolha()" src="./images/Vector.png"></nav>
+                        <div class="info3 escondido">
+                            <div class="textpergunta1">Pergunta 3</div>
+                            <input type="text" class="input5-3" placeholder="Texto da pergunta">
+                            <input type="text" class="input6-3" placeholder="Cor de fundo da pergunta">
+                            <div class="textpergunta2">Resposta correta</div>
+                            <input type="text" class="input7-3" placeholder="Resposta correta">
+                            <input type="text" class="input8-3" placeholder="URL da imagem">
+                            <div class="textpergunta3">Respostas incorretas</div>
+                            <div class="subinput1">
+                                <input type="text" class="input9-3" placeholder="Resposta incorreta 1">
+                                <input type="text" class="input10-3" placeholder="URL da imagem 1">
+                            </div>
+                            <div class="subinput2">
+                                <input type="text" class="input11-3" placeholder="Resposta incorreta 2">
+                                <input type="text" class="input12-3" placeholder="URL da imagem 2">
+                            </div>
+                            <div class="subinput3">
+                                <input type="text" class="input13-3" placeholder="Resposta incorreta 3">
+                                <input type="text" class="input14-3" placeholder="URL da imagem 3">
+                            </div>
+                        </div>
+                </div> 
             </div>
         </main>
 
