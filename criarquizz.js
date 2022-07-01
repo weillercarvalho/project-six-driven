@@ -33,11 +33,11 @@ function iterarQuizz() {
     for (let i = 4; i <= qntperguntas; i++) {
         containersecundario.innerHTML+= `
         <div class="father">
-        <nav class="pergunta${i}"><span>Pergunta ${i}</span> <img class="imgprg${i}" onclick="switarEscolha();" src="./images/Vector.png"></nav>
-            <div class="info${i} escondido">
+        <nav class="pergunta${i}"><span>Pergunta ${i}</span> <img class="imgprg${i}" onclick="switarEscolha('pergunta${i}','info${i}');" src="./images/Vector.png"></nav>
+            <section class="info${i} escondido">
                 <div class="textpergunta1">Pergunta${i}</div>
                 <input type="text" class="input5-${i}" placeholder="Texto da pergunta">
-                <input type="text" class="input6-${i}" placeholder="Cor de fundo da pergunta">
+                <input type="color" class="input6-${i}" placeholder="Cor de fundo da pergunta">
                 <div class="textpergunta2">Resposta correta</div>
                 <input type="text" class="input7-${i}" placeholder="Resposta correta">
                 <input type="text" class="input8-${i}" placeholder="URL da imagem">
@@ -54,19 +54,22 @@ function iterarQuizz() {
                     <input type="text" class="input13-${i}" placeholder="Resposta incorreta 3">
                     <input type="text" class="input14-${i}" placeholder="URL da imagem 3">
                 </div>
-            </div>
+            </section>
     </div>    
     `
     } containersecundario.innerHTML += `<div class="button1" onclick="caracteristicasPerguntas()">Prosseguir para criar os níveis</div>`
  
 }
 
-function switarEscolha() {
+
+
+function switarEscolha(value, index) {
+    console.log(value, index)
     for (let i = 1; i <= qntperguntas; i++) {
         imagem = document.querySelector(`.imgprg${i}`);
-        imagem2 = document.querySelector(`.pergunta${i}`);
-        imagem3 = document.querySelector(`.info${i}`);
-        if (document.querySelector(`.info2.escondido`) !== null) {
+        imagem2 = document.querySelector(`.${value}`);
+        imagem3 = document.querySelector(`.${index}`);
+        if (document.querySelector(`.${value}.escondido`) === null) {
             imagem2.classList.toggle(`escondido`);
             imagem3.classList.toggle(`escondido`);
         } 
@@ -79,8 +82,9 @@ function caracteristicasPerguntas() {
         if (perguntas.length < 20) {
             return alert(`Quantidade minima de caracteres nas perguntas são 20 caracteres, corrija a ${i} pergunta.`)
         }
-        if (perguntas === "" || isNaN(perguntas)) {
-            return alert(`Caractere inválido ou espaço em branco, corrija a ${i} pergunta.`)
+        if (perguntas === "") {
+            return alert(`Espaço em branco, corrija a ${i} pergunta.`)
         }
+
     }
 }

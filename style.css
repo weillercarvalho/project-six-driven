@@ -80,7 +80,7 @@ header > div {
     background-color: white;
 }
 
-.info1, .info2, .info3 {
+section {
     display: flex;
     flex-direction: column;
     margin-top: 27px;
@@ -184,7 +184,7 @@ input::placeholder {
         font-size: 20px;
     }
 
-    .info1 {
+    .info {
         width: 375px;
     
     
