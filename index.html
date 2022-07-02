@@ -16,7 +16,7 @@
             <div>BuzzQuizz</div>
         </header>
         <main>
-            <div class="container1">
+            <div class="container1 escondido">
                 <div class="text1">Comece pelo começo</div>
                 <div class="info">
                     <input type="text" class="input1" placeholder="Titulo do seu quizz">
@@ -31,76 +31,45 @@
                 <div class="father">
                     <nav class="pergunta1 escondido"><span>Pergunta 1</span> <img class="imgprg1" onclick="switarEscolha('pergunta1','info1')" src="./images/Vector.png"></nav>
                         <section class="info1">
-                            <div class="textpergunta1">Pergunta 1</div>
+                            <div class="textpergunta">Pergunta 1</div>
                             <input type="text" class="input5-1" placeholder="Texto da pergunta">
-                            <input type="color" class="input6-1" placeholder="Cor de fundo da pergunta">
-                            <div class="textpergunta2">Resposta correta</div>
+                            <label for="cor" class="textpergunta">Selecione a cor</label>
+                            <input type="color" id="cor" class="input6-1" placeholder="Cor de fundo da pergunta">
+                            <div class="textpergunta">Resposta correta</div>
                             <input type="text" class="input7-1" placeholder="Resposta correta">
                             <input type="text" class="input8-1" placeholder="URL da imagem">
-                            <div class="textpergunta3">Respostas incorretas</div>
-                            <div class="subinput1">
-                                <input type="text" class="input9-1" placeholder="Resposta incorreta 1">
-                                <input type="text" class="input10-1" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="subinput2">
-                                <input type="text" class="input11-1" placeholder="Resposta incorreta 2">
-                                <input type="text" class="input12-1" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="subinput3">
-                                <input type="text" class="input13-1" placeholder="Resposta incorreta 3">
-                                <input type="text" class="input14-1" placeholder="URL da imagem 3">
-                            </div>
+                            <div class="textpergunta">Respostas incorretas</div>
+                            <input type="text" class="input9-1" placeholder="Resposta incorreta 1">
+                            <input type="text" class="input10-1" placeholder="URL da imagem 1">
+                            <input type="text" class="input11-1" placeholder="Resposta incorreta 2">
+                            <input type="text" class="input12-1" placeholder="URL da imagem 2">
+                            <input type="text" class="input13-1" placeholder="Resposta incorreta 3">
+                            <input type="text" class="input14-1" placeholder="URL da imagem 3">
                         </section>
                 </div>     
-                <div class="father">
-                    <nav class="pergunta2"><span>Pergunta 2</span> <img class="imgprg2" onclick="switarEscolha('pergunta2', 'info2')" src="./images/Vector.png"></nav>
-                        <section class="info2 escondido">
-                            <div class="textpergunta1">Pergunta 2</div>
-                            <input type="text" class="input5-2" placeholder="Texto da pergunta">
-                            <input type="color" class="input6-2" placeholder="Cor de fundo da pergunta">
-                            <div class="textpergunta2">Resposta correta</div>
-                            <input type="text" class="input7-2" placeholder="Resposta correta">
-                            <input type="text" class="input8-2" placeholder="URL da imagem">
-                            <div class="textpergunta3">Respostas incorretas</div>
-                            <div class="subinput1">
-                                <input type="text" class="input9-2" placeholder="Resposta incorreta 1">
-                                <input type="text" class="input10-2" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="subinput2">
-                                <input type="text" class="input11-2" placeholder="Resposta incorreta 2">
-                                <input type="text" class="input12-2" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="subinput3">
-                                <input type="text" class="input13-2" placeholder="Resposta incorreta 3">
-                                <input type="text" class="input14-2" placeholder="URL da imagem 3">
-                            </div>
-                        </section>
-                </div>    
-                <div class="father">
-                    <nav class="pergunta3"><span>Pergunta 3</span> <img class="imgprg3" onclick="switarEscolha('pergunta3', 'info3')" src="./images/Vector.png"></nav>
-                        <section class="info3 escondido">
-                            <div class="textpergunta1">Pergunta 3</div>
-                            <input type="text" class="input5-3" placeholder="Texto da pergunta">
-                            <input type="color" class="input6-3" placeholder="Cor de fundo da pergunta">
-                            <div class="textpergunta2">Resposta correta</div>
-                            <input type="text" class="input7-3" placeholder="Resposta correta">
-                            <input type="text" class="input8-3" placeholder="URL da imagem">
-                            <div class="textpergunta3">Respostas incorretas</div>
-                            <div class="subinput1">
-                                <input type="text" class="input9-3" placeholder="Resposta incorreta 1">
-                                <input type="text" class="input10-3" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="subinput2">
-                                <input type="text" class="input11-3" placeholder="Resposta incorreta 2">
-                                <input type="text" class="input12-3" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="subinput3">
-                                <input type="text" class="input13-3" placeholder="Resposta incorreta 3">
-                                <input type="text" class="input14-3" placeholder="URL da imagem 3">
-                            </div>
-                        </section>
-                </div> 
             </div>
+            <div class="container3 escondido">
+                <div class="titulo">Agora, decida os níveis</div>
+                <div class="father">
+                    <nav class="pergunta1-1 escondido"><span>Nível 1</span> <img class="imgprg1-1" onclick="switarNiveis('pergunta1-1','info1-1');" src="./images/Vector.png"></nav>
+                        <aside class="info1-1">
+                            <div class="textpergunta">Nível 1</div>
+                            <input type="text" class="input15-1" placeholder="Titulo do nível">
+                            <input type="text" class="input16-1" placeholder="% de acerto mínima">
+                            <input type="text" class="input17-1" placeholder="URL da imagem do nível">
+                            <input type="text" class="input18-1" placeholder="Descrição do nível">
+                        </aside>
+                </div>
+            </div>
+            <div class="container4">
+                <div class="titulo">Seu quizz está pronto</div>
+                <div class="father">
+                    <div class="finalizar">
+                        <img class="imagemimagem" src="https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/refrig-coca-cola-1lt-225x225.png">
+                    </div>
+                    <div class="titulotitulo">Teste teste</div>
+                </div>
+            </div>  
         </main>
 
 
