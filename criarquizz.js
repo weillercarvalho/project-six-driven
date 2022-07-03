@@ -1,14 +1,31 @@
+let quizz = {
+    title:"",
+    image:"",
+    questions:[],
+    levels:[]
+};
 let titulo1, urltitulo, urltitulo2, qntperguntas, qntniveis, containerprimario, containersecundario, imagem, imagem2, imagem3, perguntas, respostacorreta, urlcorreta, respostaincorreta1, urlincorreta1, respostaincorreta2, urlincorreta2, respostaincorreta3, urlincorreta3, urlcorretaslice, urlincorreta1slice, urlincorreta2slice, urlincorreta3slice, containerterciario;
-let titulonivel, porcentagemminima, urlnivel, descricaonivel, urlnivelslice, porcentagemminimastring, containerquaternario;
+let titulonivel, porcentagemminima, urlnivel, descricaonivel, urlnivelslice, porcentagemminimastring, containerquaternario, cores;
 let count = 0;
+let objeto;
+let ultimo = [];
+let injetarresposta = [];
+let injetarniveis = [];
+let criarresposta = [];
+let criarniveis = [];
+containerprimario = document.querySelector(`.container1`);
+containersecundario = document.querySelector(`.container2`);
+containerterciario = document.querySelector(`.container3`);
+containerquaternario = document.querySelector(`.container4`);
+titulo1 = document.querySelector(`.input1`).value;
+urltitulo = document.querySelector(`.input2`).value;
+urltitulo2 = urltitulo.slice(0,8);   
+qntperguntas = Number(document.querySelector(`.input3`).value);
+qntniveis = Number(document.querySelector(`.input4`).value);
+
+
 function telaInicial() {
-    containerprimario = document.querySelector(`.container1`);
-    containersecundario = document.querySelector(`.container2`);
-    titulo1 = document.querySelector(`.input1`).value;
-    urltitulo = document.querySelector(`.input2`).value;
-    urltitulo2 = urltitulo.slice(0,8);   
-    qntperguntas = Number(document.querySelector(`.input3`).value);
-    qntniveis = Number(document.querySelector(`.input4`).value);
+
     if (titulo1.length < 20 || titulo1.length > 65) {
         return alert(`Tamanho do titulo inválido, coloque entre 20 e 65 caracteres.`)
     }
@@ -28,10 +45,25 @@ function telaInicial() {
     iterarPerguntas();
 }
 
-containerprimario = document.querySelector(`.container1`);
-containersecundario = document.querySelector(`.container2`);
-containerterciario = document.querySelector(`.container3`);
-containerquaternario = document.querySelector(`.container4`);
+function informar(element) {
+    objeto = {
+        title: `${element.parentNode.querySelector('.input1').value}`,
+        image: `${element.parentNode.querySelector('.input2').value}`,
+        nperguntas: `${element.parentNode.querySelector('.input3').value}`,
+        nniveis: `${element.parentNode.querySelector('.input4').value}`,
+    };
+
+    quizz.title = objeto.title;
+    quizz.image = objeto.image;
+    quizz.questions.length = objeto.nperguntas;
+    quizz.questions = quizz.questions.slice(0,objeto.nperguntas);
+    quizz.levels.length = objeto.nniveis;
+    quizz.levels = quizz.levels.slice(0, objeto.nniveis);
+    console.log(quizz)
+}
+
+
+
 
 function iterarPerguntas() {
     for (let i = 2; i <= qntperguntas; i++) {
@@ -78,6 +110,7 @@ function switarEscolha(value, index) {
 function caracteristicasPerguntas() {
     for (let i = 1; i <= qntperguntas; i++) {
         perguntas = document.querySelector(`.input5-${i}`).value;
+        cores = document.querySelector(`.input6-${i}`).value;
         respostacorreta = document.querySelector(`.input7-${i}`).value;
         urlcorreta = document.querySelector(`.input8-${i}`).value;
         urlcorretaslice = urlcorreta.slice(0,8);
@@ -111,11 +144,9 @@ function caracteristicasPerguntas() {
         if (urlincorreta3slice !== `https://` && respostaincorreta3 !== "") {
             return alert(`Apenas arquivos URL são aceito, inicie sua url de imagem incorreta 3 da pergunta ${i} com https:// + endereço da imagem.`);
         }
-        else {
-            containersecundario.classList.add(`escondido`);
-            containerterciario.classList.remove(`escondido`); 
-        }
     }
+    containersecundario.classList.add(`escondido`);
+    containerterciario.classList.remove(`escondido`); 
     iterarNiveis();
 }
 
@@ -129,11 +160,11 @@ function iterarNiveis() {
                 <input type="text" class="input15-${i}" placeholder="Titulo do nível">
                 <input type="text" class="input16-${i}" placeholder="% de acerto mínima">
                 <input type="text" class="input17-${i}" placeholder="URL da imagem do nível">
-                <input type="text" class="input18-${i}" placeholder="Descrição do nível">
+                <input type="text" id="input18-${i}" class="input18-${i}" placeholder="Descrição do nível">
             </aside>
     </div>
     `
-    } containerterciario.innerHTML += `<div class="button1" onclick="caracteristicasNiveis()">Finalizar Quizz</div>`
+    } containerterciario.innerHTML += `<div class="button1" onclick="caracteristicasNiveis();injetarPerguntasNiveis()">Finalizar Quizz</div>`
 }
 
 function switarNiveis(value, index) {
@@ -149,7 +180,8 @@ function switarNiveis(value, index) {
 }
 
 function caracteristicasNiveis() {
-    for(let i = 1; i <= qntniveis; i++) {
+    let valorzero = false;
+    for(let i = 2; i <= qntniveis; i++) {
         titulonivel = document.querySelector(`.input15-${i}`).value;
         porcentagemminimastring = document.querySelector(`.input16-${i}`).value;
         porcentagemminima = Number(document.querySelector(`.input16-${i}`).value);
@@ -159,22 +191,177 @@ function caracteristicasNiveis() {
         if (titulonivel.length < 10) {
             return alert(`Quantidade minima de caracteres nos níveis sao 10, corrija o ${i} nivel.`);
         }
-        if (porcentagemminima < 0 || porcentagemminima >= 100 || porcentagemminima === "" || porcentagemminima === null) {
+        if (porcentagemminimastring < "0" || porcentagemminimastring >= "100" || isNaN(porcentagemminimastring)) {
             return alert(`Valor improprio digite um número entre 0 e 100.`);
         }
-        if (porcentagemminimastring === "") {
-            return alert(`Valor em branco improprio, digite um número entre 0 e 100.`)
-        }
-
         if (urlnivelslice !== `https://`) {
             return alert(`Apenas arquivos URL são aceito, inicie sua url de imagem do nivel ${i} com https:// + endereço da imagem.`)
         }
         if (descricaonivel.length < 30) {
             return alert (`Quantidade minima de caracteres na descrição dos níveis são 30, corrija a ${i} descrição.`)
         }
-        
-
-
-
-    }   
+        if (porcentagemminimastring === "0") {
+            valorzero = true;
+        }
+    }    
+    if (!valorzero) {
+        return false;
+    } 
+    containerterciario.classList.add(`escondido`);
+    containerquaternario.classList.remove(`escondido`); 
+    iterarFinal();
 }
+
+// CORRIGIR ERROS LEVELS FUNCAO injetarPerguntasNiveis, VERIFICAR VALIDACAO DOS NIVEIS ALGUNS ERROS NAO ESTAO DANDO alert. E JOGAR NA TELA FINAL
+
+function injetarPerguntasNiveis() {
+    for (let i = 1; i <= qntperguntas; i++) {
+        if (respostaincorreta1.length > 0 && respostaincorreta2.length > 0 && respostaincorreta3.length > 0) {
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta1}`,
+                image: `${urlincorreta1}`,
+                isCorrectAnswer: false
+            },{
+                text: `${respostaincorreta2}`,
+                image: `${urlincorreta2}`,
+                isCorrectAnswer: false
+            },{
+                text: `${respostaincorreta3}`,
+                image: `${urlincorreta3}`,
+                isCorrectAnswer: false
+            });
+        }
+        if (respostaincorreta1.length > 0 && respostaincorreta2.length > 0 && respostaincorreta3.length === 0){
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta1}`,
+                image: `${urlincorreta1}`,
+                isCorrectAnswer: false
+            },{
+                text: `${respostaincorreta2}`,
+                image: `${urlincorreta2}`,
+                isCorrectAnswer: false
+            });
+        }
+        if (respostaincorreta1.length > 0 && respostaincorreta2.length === 0 && respostaincorreta3.length > 0) {
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta1}`,
+                image: `${urlincorreta1}`,
+                isCorrectAnswer: false
+            },{
+                text: `${respostaincorreta3}`,
+                image: `${urlincorreta3}`,
+                isCorrectAnswer: false
+            });
+        }
+        if (respostaincorreta1.length === 0 && respostaincorreta2.length > 0 && respostaincorreta3.length > 0) {
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta2}`,
+                image: `${urlincorreta2}`,
+                isCorrectAnswer: false
+            },{
+                text: `${respostaincorreta3}`,
+                image: `${urlincorreta3}`,
+                isCorrectAnswer: false
+            });
+        }
+        if (respostaincorreta1.length === 0 && respostaincorreta2.length === 0 && respostaincorreta3.length > 0) {
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta3}`,
+                image: `${urlincorreta3}`,
+                isCorrectAnswer: false
+            });
+        }
+        if (respostaincorreta1.length === 0 && respostaincorreta2.length > 0 && respostaincorreta3.length === 0) {
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta2}`,
+                image: `${urlincorreta2}`,
+                isCorrectAnswer: false
+            });
+        }
+        if (respostaincorreta1.length > 0 && respostaincorreta2.length === 0 && respostaincorreta3.length === 0) {
+            injetarresposta.push({
+                text: `${respostacorreta}`,
+                image: `${urlcorreta}`,
+                isCorrectAnswer: true,
+            },
+            {
+                text: `${respostaincorreta1}`,
+                image: `${urlincorreta1}`,
+                isCorrectAnswer: false
+            });
+        }
+        criarresposta = {
+        title: `${perguntas}`,
+        color: `${cores}`,
+        answers: injetarresposta
+        }
+    console.log(quizz)
+    }
+    for (let i = 1; i <= qntniveis; i++) {
+        injetarniveis.push({
+            title: `${titulonivel}`,
+            image: `${urlnivel}`,
+            text: `${descricaonivel}`,
+            minValue: porcentagemminima
+            })
+
+    }
+    quizz.questions = criarresposta;
+    quizz.levels = injetarniveis;
+    console.log(quizz)
+}
+
+function iterarFinal() {
+    for (let i = 1; i <= 1; i++) {
+        containerquaternario.innerHTML+=`
+        <div class="father">
+            <div class="finalizar">
+                <img class="imagemimagem" src="${urltitulo}">
+            </div>
+            <div class="titulotitulo">${titulo1}</div>
+            <div class="button1" onclick="acessarTela2();">Acessar Quizz</div>
+            <div class="voltar" onclick="acessarTela1();">Voltar pra home</div>
+        </div>
+        `
+    }
+}
+// ISSO AQUI FAZER COM O PAULO CONEXAO COM TELA 2
+function acessarTela2(index) {
+    console.log(index)
+}
+
+// ISSO AQUI FAZER COM O PAULO CONEXAO COM TELA 1
+function acessarTela1(index) {
+    console.log(index)
+}
+

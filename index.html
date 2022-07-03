@@ -16,7 +16,7 @@
             <div>BuzzQuizz</div>
         </header>
         <main>
-            <div class="container1 escondido">
+            <div class="container1">
                 <div class="text1">Comece pelo começo</div>
                 <div class="info">
                     <input type="text" class="input1" placeholder="Titulo do seu quizz">
@@ -24,7 +24,7 @@
                     <input type="text" class="input3" placeholder="Quantidade de perguntas do quizz">
                     <input type="text" class="input4" placeholder="Quantidade de niveis do quizz">
                 </div>
-                <div class="button1" onclick="telaInicial()">Prosseguir para criar perguntas</div>
+                <div class="button1" onclick="telaInicial(); informar(this);">Prosseguir para criar perguntas</div>
             </div>
             <div class="container2 escondido">
                 <div class="titulo">Crie suas perguntas</div>
@@ -57,34 +57,14 @@
                             <input type="text" class="input15-1" placeholder="Titulo do nível">
                             <input type="text" class="input16-1" placeholder="% de acerto mínima">
                             <input type="text" class="input17-1" placeholder="URL da imagem do nível">
-                            <input type="text" class="input18-1" placeholder="Descrição do nível">
+                            <input type="text" id="input18-1" class="input18-1" placeholder="Descrição do nível">
                         </aside>
                 </div>
             </div>
-            <div class="container4">
+            <div class="container4 escondido">
                 <div class="titulo">Seu quizz está pronto</div>
-                <div class="father">
-                    <div class="finalizar">
-                        <img class="imagemimagem" src="https://www.minicash.com.br/image/cache/catalog/img/produtos_2021/refrig-coca-cola-1lt-225x225.png">
-                    </div>
-                    <div class="titulotitulo">Teste teste</div>
-                </div>
             </div>  
         </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="listarquizz.js"></script>
