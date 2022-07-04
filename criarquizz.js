@@ -13,6 +13,10 @@ let injetarresposta = [];
 let injetarniveis = [];
 let criarresposta = [];
 let criarniveis = [];
+let injetartitulo = ``;
+let injetarcor = ``;
+let local = [];
+let localID;
 containerprimario = document.querySelector(`.container1`);
 containersecundario = document.querySelector(`.container2`);
 containerterciario = document.querySelector(`.container3`);
@@ -25,7 +29,11 @@ qntniveis = Number(document.querySelector(`.input4`).value);
 
 
 function telaInicial() {
-
+    titulo1 = document.querySelector(`.input1`).value;
+    urltitulo = document.querySelector(`.input2`).value;
+    urltitulo2 = urltitulo.slice(0,8);   
+    qntperguntas = Number(document.querySelector(`.input3`).value);
+    qntniveis = Number(document.querySelector(`.input4`).value);
     if (titulo1.length < 20 || titulo1.length > 65) {
         return alert(`Tamanho do titulo inválido, coloque entre 20 e 65 caracteres.`)
     }
@@ -38,10 +46,8 @@ function telaInicial() {
     if(qntniveis < 2 || isNaN(qntniveis)) {
         return alert(`Número de niveis inválido, adicione um número igual ou maior que 2.`);
     }
-    else {
-        containerprimario.classList.add(`escondido`);
-        containersecundario.classList.remove(`escondido`); 
-    }
+    containerprimario.classList.add(`escondido`);
+    containersecundario.classList.remove(`escondido`); 
     iterarPerguntas();
 }
 
@@ -164,7 +170,7 @@ function iterarNiveis() {
             </aside>
     </div>
     `
-    } containerterciario.innerHTML += `<div class="button1" onclick="caracteristicasNiveis();injetarPerguntasNiveis()">Finalizar Quizz</div>`
+    } containerterciario.innerHTML += `<div class="button1" onclick="caracteristicasNiveis();">Finalizar Quizz</div>`
 }
 
 function switarNiveis(value, index) {
@@ -192,7 +198,7 @@ function caracteristicasNiveis() {
             return alert(`Quantidade minima de caracteres nos níveis sao 10, corrija o ${i} nivel.`);
         }
         if (porcentagemminimastring < "0" || porcentagemminimastring >= "100" || isNaN(porcentagemminimastring)) {
-            return alert(`Valor improprio digite um número entre 0 e 100.`);
+            return alert(`Valor improprio um número entre 0 e 100, sendo pelo menos um número igual a 0.`);
         }
         if (urlnivelslice !== `https://`) {
             return alert(`Apenas arquivos URL são aceito, inicie sua url de imagem do nivel ${i} com https:// + endereço da imagem.`)
@@ -203,142 +209,149 @@ function caracteristicasNiveis() {
         if (porcentagemminimastring === "0") {
             valorzero = true;
         }
-    }    
+    }
     if (!valorzero) {
-        return false;
-    } 
+        return false
+    }
+
     containerterciario.classList.add(`escondido`);
     containerquaternario.classList.remove(`escondido`); 
+    injetarPerguntasNiveis();
     iterarFinal();
+    enviarAPIquizz();
 }
 
-// CORRIGIR ERROS LEVELS FUNCAO injetarPerguntasNiveis, VERIFICAR VALIDACAO DOS NIVEIS ALGUNS ERROS NAO ESTAO DANDO alert. E JOGAR NA TELA FINAL
+
 
 function injetarPerguntasNiveis() {
+
     for (let i = 1; i <= qntperguntas; i++) {
+        injetarresposta = [];
         if (respostaincorreta1.length > 0 && respostaincorreta2.length > 0 && respostaincorreta3.length > 0) {
+            
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta1}`,
-                image: `${urlincorreta1}`,
+                text: `${document.querySelector(`.input9-${i}`).value}`,
+                image: `${document.querySelector(`.input10-${i}`).value}`,
                 isCorrectAnswer: false
             },{
-                text: `${respostaincorreta2}`,
-                image: `${urlincorreta2}`,
+                text: `${document.querySelector(`.input11-${i}`).value}`,
+                image: `${document.querySelector(`.input12-${i}`).value}`,
                 isCorrectAnswer: false
             },{
-                text: `${respostaincorreta3}`,
-                image: `${urlincorreta3}`,
+                text: `${document.querySelector(`.input13-${i}`).value}`,
+                image: `${document.querySelector(`.input14-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
         if (respostaincorreta1.length > 0 && respostaincorreta2.length > 0 && respostaincorreta3.length === 0){
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta1}`,
-                image: `${urlincorreta1}`,
+                text: `${document.querySelector(`.input9-${i}`).value}`,
+                image: `${document.querySelector(`.input10-${i}`).value}`,
                 isCorrectAnswer: false
             },{
-                text: `${respostaincorreta2}`,
-                image: `${urlincorreta2}`,
+                text: `${document.querySelector(`.input11-${i}`).value}`,
+                image: `${document.querySelector(`.input12-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
         if (respostaincorreta1.length > 0 && respostaincorreta2.length === 0 && respostaincorreta3.length > 0) {
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta1}`,
-                image: `${urlincorreta1}`,
+                text: `${document.querySelector(`.input9-${i}`).value}`,
+                image: `${document.querySelector(`.input10-${i}`).value}`,
                 isCorrectAnswer: false
             },{
-                text: `${respostaincorreta3}`,
-                image: `${urlincorreta3}`,
+                text: `${document.querySelector(`.input13-${i}`).value}`,
+                image: `${document.querySelector(`.input14-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
         if (respostaincorreta1.length === 0 && respostaincorreta2.length > 0 && respostaincorreta3.length > 0) {
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta2}`,
-                image: `${urlincorreta2}`,
+                text: `${document.querySelector(`.input11-${i}`).value}`,
+                image: `${document.querySelector(`.input12-${i}`).value}`,
                 isCorrectAnswer: false
             },{
-                text: `${respostaincorreta3}`,
-                image: `${urlincorreta3}`,
+                text: `${document.querySelector(`.input13-${i}`).value}`,
+                image: `${document.querySelector(`.input14-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
         if (respostaincorreta1.length === 0 && respostaincorreta2.length === 0 && respostaincorreta3.length > 0) {
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta3}`,
-                image: `${urlincorreta3}`,
+                text: `${document.querySelector(`.input13-${i}`).value}`,
+                image: `${document.querySelector(`.input14-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
         if (respostaincorreta1.length === 0 && respostaincorreta2.length > 0 && respostaincorreta3.length === 0) {
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta2}`,
-                image: `${urlincorreta2}`,
+                text: `${document.querySelector(`.input11-${i}`).value}`,
+                image: `${document.querySelector(`.input12-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
         if (respostaincorreta1.length > 0 && respostaincorreta2.length === 0 && respostaincorreta3.length === 0) {
             injetarresposta.push({
-                text: `${respostacorreta}`,
-                image: `${urlcorreta}`,
+                text: `${document.querySelector(`.input7-${i}`).value}`,
+                image: `${document.querySelector(`.input8-${i}`).value}`,
                 isCorrectAnswer: true,
             },
             {
-                text: `${respostaincorreta1}`,
-                image: `${urlincorreta1}`,
+                text: `${document.querySelector(`.input9-${i}`).value}`,
+                image: `${document.querySelector(`.input10-${i}`).value}`,
                 isCorrectAnswer: false
             });
         }
-        criarresposta = {
-        title: `${perguntas}`,
-        color: `${cores}`,
-        answers: injetarresposta
-        }
-    console.log(quizz)
+    criarresposta[i-1] =
+    {
+    title: `${document.querySelector(`.input5-${i}`).value}`,
+    color: `${document.querySelector(`.input6-${i}`).value}`,
+    answers: injetarresposta
+    };
     }
+
+    console.log(quizz)
     for (let i = 1; i <= qntniveis; i++) {
         injetarniveis.push({
-            title: `${titulonivel}`,
-            image: `${urlnivel}`,
-            text: `${descricaonivel}`,
-            minValue: porcentagemminima
+            title: `${document.querySelector(`.input15-${i}`).value}`,
+            image: `${document.querySelector(`.input17-${i}`).value}`,
+            text: `${document.querySelector(`.input18-${i}`).value}`,
+            minValue: `${Number(document.querySelector(`.input16-${i}`).value)}`
             })
-
     }
     quizz.questions = criarresposta;
     quizz.levels = injetarniveis;
-    console.log(quizz)
+    console.log(quizz);
 }
 
 function iterarFinal() {
@@ -355,6 +368,34 @@ function iterarFinal() {
         `
     }
 }
+
+function enviarAPIquizz() {
+    const promisse = axios.post(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes`, quizz);
+    promisse.then(positivo);
+    promisse.catch(negativo);
+}
+
+// ANEXAR ESSA FUNCAO PRA PARTE DO PAULO JA VAI AJUDAR ELE NA PARTE 1
+// function positivo(data) {
+//     local.push(data.data.id);
+//     console.log(data);
+//     localID = local[0];
+//     const promisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${localID}`);
+//     promisse.then(positivoID);
+// }
+
+// function positivoID(data) {
+//     console.log(data)
+// }
+
+function negativo(erro) {
+    if (erro.response.status === 400) {
+        return alert(`Erro 400.`)
+    }
+    else if (erro.response.status === 422) {
+        return alert (`Erro 422.`)
+    }
+}
 // ISSO AQUI FAZER COM O PAULO CONEXAO COM TELA 2
 function acessarTela2(index) {
     console.log(index)
@@ -364,4 +405,3 @@ function acessarTela2(index) {
 function acessarTela1(index) {
     console.log(index)
 }
-
